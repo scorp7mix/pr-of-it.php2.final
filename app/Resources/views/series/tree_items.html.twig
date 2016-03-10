@@ -1,0 +1,10 @@
+{% for item in items %}
+    <li>
+        {{ item.title }} / <small>{{ item.origin }}</small>
+        {% if item.__children %}
+            <ul>
+                {% include 'series/tree_items.html.twig' with { 'items': item.__children } %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}
