@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Библиография | Э.М.Гамильтон{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets '@bootstrap_css' %}
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
@@ -11,9 +11,27 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}
-            <div class="container"></div>
-        {% endblock %}
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Админ-панель</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+
+            {% block content %}{% endblock %}
+
+        </div>
+
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container">
+                <div class="navbar-header">
+                    <p class="navbar-brand">&copy; 2016 scorp7mix@gmail.com</p>
+                </div>
+            </div>
+        </nav>
 
         {% block javascripts %}
             {% javascripts '@jquery' '@bootstrap_js' %}

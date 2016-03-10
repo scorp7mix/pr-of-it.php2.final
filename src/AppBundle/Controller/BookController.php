@@ -14,11 +14,15 @@ class BookController extends Controller
      */
     public function indexAction()
     {
-        $books = $this->getDoctrine()
-            ->getRepository('AppBundle:Book')
-            ->findAll();
+        $series = $this->getDoctrine()
+            ->getRepository('AppBundle:Series')
+            ->childrenHierarchy();
 
-        return $this->render('book/index.html.twig', ['books' => $books]);
+        return $this->render(
+            'book/index.html.twig',
+            [
+                'series' => $series,
+            ]);
     }
 
     /**

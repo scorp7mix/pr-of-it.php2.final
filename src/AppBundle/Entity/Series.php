@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -32,6 +33,11 @@ class Series
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $origin;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Book", mappedBy="series")
+     */
+    protected $books;
 
     /**
      * @Gedmo\TreeLeft
@@ -70,6 +76,11 @@ class Series
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;
+
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -161,6 +172,40 @@ class Series
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Add book
+     *
+     * @param \AppBundle\Entity\Book $book
+     *
+     * @return Series
+     */
+    public function addBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books[] = $book;
+
+        return $this;
+    }
+
+    /**
+     * Remove book
+     *
+     * @param \AppBundle\Entity\Book $book
+     */
+    public function removeBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books->removeElement($book);
+    }
+
+    /**
+     * Get books
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBooks()
+    {
+        return $this->books;
     }
 
 }

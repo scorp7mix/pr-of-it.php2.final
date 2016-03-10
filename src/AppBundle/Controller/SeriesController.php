@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Series;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -82,5 +83,25 @@ class SeriesController extends Controller
         $entityManager->flush();
 
         return $this->redirectToRoute('series_index');
+    }
+
+    /**
+     * @Route("/api/series/{id}/books")
+     */
+    public function booksAction(Series $series)
+    {
+        $books = $series->getBooks();
+
+        $result = [];
+        foreach ($books as $book) {
+            $result[] = [
+                'title' => $book->getTitle(),
+                'origin' => $book->getOrigin(),
+                'year' => $book->getYear(),
+                'series' => $series->getTitle()
+            ];
+        }
+
+        return new JsonResponse($result);
     }
 }

@@ -37,6 +37,12 @@ class Book
     protected $year;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Series", inversedBy="books")
+     * @ORM\JoinColumn(name="series_id", referencedColumnName="id")
+     */
+    protected $series;
+
+    /**
      * Get id
      *
      * @return integer
@@ -116,5 +122,29 @@ class Book
     public function getYear()
     {
         return $this->year;
+    }
+
+    /**
+     * Set series
+     *
+     * @param \AppBundle\Entity\Series $series
+     *
+     * @return Book
+     */
+    public function setSeries(\AppBundle\Entity\Series $series = null)
+    {
+        $this->series = $series;
+
+        return $this;
+    }
+
+    /**
+     * Get series
+     *
+     * @return \AppBundle\Entity\Series
+     */
+    public function getSeries()
+    {
+        return $this->series;
     }
 }
