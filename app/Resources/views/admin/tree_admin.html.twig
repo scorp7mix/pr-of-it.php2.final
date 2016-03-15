@@ -1,0 +1,17 @@
+{% for item in items %}
+    <li data-id="{{ item.id }}">
+        {{ item.title }}
+        {% if item.origin %}/ <small>{{ item.origin }}</small>{% endif %}
+        <a href="/admin/series/edit/{{ item.id }}" style="display: inline-block; width: 25px; text-align: center">
+            <i class="glyphicon glyphicon-pencil"></i>
+        </a>
+        <a href="/admin/series/remove/{{ item.id }}">
+            <i class="glyphicon glyphicon-remove"></i>
+        </a>
+        {% if item.__children %}
+            <ul>
+                {% include 'admin/tree_admin.html.twig' with { 'items': item.__children } %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            {% for error in errors %}
+                <div class="alert alert-danger">{{ error.message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block content %}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    <div class="form-group">
+        {{ form_label(form.title, 'Название', {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        <div class="col-sm-5">
+            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.title, {'attr': {'class': 'alert alert-danger'}}) }}
+        </div>
+   </div>
+
+    <div class="form-group">
+        {{ form_label(form.origin, 'Название в оригинале', {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.origin, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.origin, {'attr': {'class': 'alert alert-danger'}}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.parent, 'Входит в серию', {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.parent, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.parent) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-default'}, 'label': 'Сохранить'}) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

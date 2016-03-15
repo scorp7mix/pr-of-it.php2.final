@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h2>Панель администратора</h2>
+    <hr>
+    <div class="row">
+        <h3>
+            Серии книг
+            <a role="button" class="btn btn-sm btn-default pull-right" href="/admin/series/create">Добавить серию</a>
+        </h3>
+        <ul id="series">
+            {% include 'admin/tree_admin.html.twig' with { 'items': series } %}
+        </ul>
+    </div>
+    <hr>
+    <div class="row">
+        <h3>
+            Книги
+            <a role="button" class="btn btn-sm btn-default pull-right" href="/admin/book/create">Добавить книгу</a>
+        </h3>
+        <table class="table table-striped" id="books">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Оригинальное название</th>
+                    <th>Год выпуска</th>
+                    <th>Серия</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.origin }}</td>
+                        <td>{{ book.year }}</td>
+                        <td>{{ book.series.title }}</td>
+                        <td><a href="/admin/book/edit/{{ book.id }}"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        <td><a href="/admin/book/remove/{{ book.id }}"><i class="glyphicon glyphicon-remove"></i></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
